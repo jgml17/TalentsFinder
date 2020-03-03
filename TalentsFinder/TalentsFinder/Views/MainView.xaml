@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             xmlns:resource="clr-namespace:Core.TalentsFinder.Extensions"
+             Title="{Binding Title}"
+             xmlns:behaviors="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+             x:Class="Core.TalentsFinder.Views.MainView">
+    <ContentPage.Content>
+
+
+        <StackLayout BackgroundColor="White">
+            <Frame
+                CornerRadius="10"
+                BackgroundColor="WhiteSmoke" Margin="10">
+
+                <Grid
+                    VerticalOptions="FillAndExpand"
+                    IsClippedToBounds="False"
+                    Padding="10,5">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="40*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                    </Grid.RowDefinitions>
+
+                    <StackLayout Grid.Row="0" Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="30" >
+                        <Label Text="{resource:AppResources MAIN_TITLE}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large" />
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="1" Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Margin="0" >
+                        <ListView x:Name="lstCriteria" ItemsSource="{Binding Technologies}" HasUnevenRows="True"  BackgroundColor="Transparent" SelectionMode="None" SeparatorVisibility="None"
+                          Margin="0,0,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement" >
+                            
+                            <ListView.Behaviors>
+                                <behaviors:EventToCommandBehavior                    
+                                    EventName="ItemTapped"
+                                    Command="{Binding ListItemTappedCommand}"
+                                    EventArgsPropertyPath="Item"/>
+                            </ListView.Behaviors>
+                            
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell StyleId="none">
+                                        <Frame BackgroundColor="WhiteSmoke" Margin="5" Padding="5" HasShadow="true">
+                                            <Frame.HasShadow>
+                                                <OnPlatform x:TypeArguments="x:Boolean">
+                                                    <On Platform="iOS" Value="True" />
+                                                    <On Platform="UWP" Value="False" />
+                                                </OnPlatform>
+                                            </Frame.HasShadow>
+                                            <StackLayout Margin="0,0,0,0" Padding="0">
+
+                                                <StackLayout Margin="0,-5,0,0" BackgroundColor="#f7f7f7" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3">
+                                                    <Grid Padding="10,5,15,5">
+
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="20*" />
+                                                            <ColumnDefinition Width="20*" />
+                                                            <ColumnDefinition Width="60*" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <CheckBox Grid.Column="0" 
+                                                            IsEnabled="False"
+                                                            IsChecked="{Binding ItemSelected}"
+                                                            Margin="0,0,0,0"
+                                                            Color="Red" />
+
+                                                        <Image Grid.Column="1" 
+                                                           Source="{Binding LogoString}"
+                                                          HeightRequest="10"
+                                                          WidthRequest="10" />
+                                                        
+                                                        <Label Grid.Column="2" BackgroundColor="Transparent" 
+                                                                       Text="{Binding Name}"
+                                                                       HorizontalOptions="Center"
+                                                                       VerticalOptions="Center"
+                                                                       HorizontalTextAlignment="Center"
+                                                                       FontSize="Medium"
+                                                                       TextColor="Black"/>
+
+                                                    </Grid>
+                                                </StackLayout>
+
+                                            </StackLayout>
+                                        </Frame>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+
+                        </ListView>
+
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="2" Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="10" >
+                        <Picker BackgroundColor="#BF0411" 
+                                Title="{Binding PickerText}" TextColor="White" TitleColor="White" 
+                                ItemsSource="{Binding PickerList, Mode=TwoWay}" 
+                                SelectedIndex="{Binding PickerIndex, Mode=TwoWay}"
+                                IsEnabled="{Binding PickerEnabled, Mode=TwoWay}">
+                            <Picker.TitleColor>
+                                <OnPlatform x:TypeArguments="Color">
+                                    <On Platform="iOS" Value="White" />
+                                    <On Platform="UWP" Value="Black" />
+                                </OnPlatform>
+                            </Picker.TitleColor>
+                        </Picker>
+                    </StackLayout>
+                    
+                    <StackLayout Grid.Row="3" Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="1" >
+                        <Button
+                            BackgroundColor="#BF0411"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="CenterAndExpand"
+                            TextColor="White"
+                            Margin="0,10,0,10"
+                            Text="{resource:AppResources MAIN_BUTTON_SHOW}"
+                            Command="{Binding ShowButtonCommand}"
+                            HeightRequest="50" />
+                    </StackLayout>
+
+                </Grid>
+            </Frame>
+        </StackLayout>
+        
+    </ContentPage.Content>
+</ContentPage>

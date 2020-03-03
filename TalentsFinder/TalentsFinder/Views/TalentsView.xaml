@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:swipeCardView="clr-namespace:MLToolkit.Forms.SwipeCardView;assembly=MLToolkit.Forms.SwipeCardView"
+             Title="{Binding Title}"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             xmlns:resource="clr-namespace:Core.TalentsFinder.Extensions"
+             x:Class="Core.TalentsFinder.Views.TalentsView">
+    <ContentPage.Content>
+
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90*" />
+                <RowDefinition Height="10*" />
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0">
+
+                <Label Text="{Binding EmptyMessage}" IsVisible="{Binding IsEmptyMessageVisible}" FontSize="20" FontAttributes="Italic" TextColor="Black"
+                   VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+
+
+                <swipeCardView:SwipeCardView
+                x:Name="SwipeCardView"
+                ItemsSource="{Binding Talents}"
+                HorizontalOptions="FillAndExpand" 
+                VerticalOptions="FillAndExpand"
+                Padding="10"
+                IsVisible="{Binding isCardVisible}"
+                SwipedCommand="{Binding SwipedCommand}"
+                DraggingCommand="{Binding DraggingCommand}"
+                Threshold="{Binding Threshold}"
+                SupportedSwipeDirections="Left, Right"
+                SupportedDraggingDirections="Left, Right" >
+
+                    <swipeCardView:SwipeCardView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0">
+                                <Frame CornerRadius="10" Padding="5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="WhiteSmoke">
+                                    <StackLayout Orientation="Vertical">
+
+                                        <Grid >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="50*" />
+                                                <ColumnDefinition Width="50*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="15*" />
+                                                <RowDefinition Height="20*" />
+                                                <RowDefinition Height="40*" />
+                                            </Grid.RowDefinitions>
+
+                                            <Grid Grid.Column="0" Grid.Row="0">
+
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="90" />
+                                                    <ColumnDefinition Width="90" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <Frame Grid.Column="1" Grid.ColumnSpan="2" Margin="25" x:Name="LikeFrame"  BorderColor="#63DD99" BackgroundColor="Transparent" Padding="0" CornerRadius="20" Rotation="-20" Opacity="0">
+                                                    <Label x:Name="LikeText" Text="Accept" TextColor="#63DD99" BackgroundColor="Transparent" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="32"></Label>
+                                                </Frame>
+                                            </Grid>
+
+                                            <Grid Grid.Column="1" Grid.Row="0">
+
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="90" />
+                                                    <ColumnDefinition Width="90" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <Frame Grid.Column="1" Grid.ColumnSpan="2" Margin="25"  x:Name="NopeFrame" BorderColor="#FF6A4F" BackgroundColor="Transparent" Padding="0" CornerRadius="20" Rotation="20" Opacity="0">
+                                                    <Label Text="Reject" TextColor="#FF6A4F" BackgroundColor="Transparent" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="32"></Label>
+                                                </Frame>
+                                            </Grid>
+
+                                            <StackLayout Grid.Column="0" Grid.Row="1" Orientation="Vertical" Margin="10">
+                                                <Label Text="{Binding Name.First}" FontSize="20" FontAttributes="Bold" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" />
+                                                <Label Text="{Binding Age, StringFormat={resource:AppResources YEARS_OLD}}" FontSize="Large" FontAttributes="Bold" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
+                                            </StackLayout>
+
+                                            <Image Source="{Binding Picture}" Aspect="AspectFit"  Grid.Column="1" Grid.Row="1" />
+
+                                            <StackLayout Grid.Row="2" Grid.ColumnSpan="2">
+                                                <Label Text="{Binding Email}" FontSize="20" FontAttributes="Bold" TextColor="Black"  HorizontalOptions="FillAndExpand" Margin="10"/>
+                                                <Label Text="{Binding Phone}" FontSize="20" FontAttributes="Bold" TextColor="Black"  HorizontalOptions="FillAndExpand" Margin="10"/>
+                                                <Label Text="{Binding Address}" FontSize="20" FontAttributes="Bold" TextColor="Black"  HorizontalOptions="FillAndExpand" Margin="10"/>
+                                                <ScrollView >
+                                                    <Label Text="{Binding FullResume}" FontSize="16" FontAttributes="Bold" TextColor="Black"  HorizontalOptions="FillAndExpand" Margin="20" />
+                                                </ScrollView>
+                                            </StackLayout>
+
+                                        </Grid>
+
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </swipeCardView:SwipeCardView.ItemTemplate>
+
+                </swipeCardView:SwipeCardView>
+
+
+
+            </StackLayout>
+
+            <StackLayout Grid.Row="1" BackgroundColor="Azure">
+                <Button
+                            BackgroundColor="#BF0411"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="StartAndExpand"
+                            TextColor="White"
+                            Margin="10"
+                            Text="{resource:AppResources REFRESH_TALENTS}"
+                            Command="{Binding RefreshTalentsCommand}"
+                            HeightRequest="40" />
+            </StackLayout>
+            
+        </Grid>
+
+
+    </ContentPage.Content>
+</ContentPage>

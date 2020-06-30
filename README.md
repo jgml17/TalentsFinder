@@ -33,3 +33,10 @@ Please submit your solution into this repository.
 Don't hesitate to contact us on any question you might have :)
 
 Good luck!
+
+## Screenshot
+![ss](UWP_1.png)
+![ss](UWP_2.png)
+![ss](UWP_3.png)
+![ss](UWP_4.png)
+![ss](IOS_1.png)
